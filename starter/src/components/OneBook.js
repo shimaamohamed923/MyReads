@@ -3,7 +3,7 @@ const OneBook = ({ book, updateShelf }) => {
     updateShelf(book, event.target.value);
   };
   return (
-    <div className="book">
+    <div className="book" id={book.id}>
       <div className="book-top">
         <div
           className="book-cover"
@@ -17,14 +17,14 @@ const OneBook = ({ book, updateShelf }) => {
           }}
         ></div>
         <div className="book-shelf-changer">
-          <select hasshelf={book.shelf} onChange={handleOnChangeSelect}>
-            <option value="none" disabled>
+          <select defaultValue={book.shelf} onChange={handleOnChangeSelect}>
+            <option value="Movet to" disabled>
               Move to...
             </option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>
-            <option value="read">None</option>
+            <option value="none">None</option>
           </select>
         </div>
       </div>

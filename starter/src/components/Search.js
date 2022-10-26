@@ -4,19 +4,31 @@ import ShelfItems from "./ShelfBooks";
 import * as BooksAPI from "../BooksAPI";
 const Search = ({ books, updateShelf }) => {
   const [query, setQuery] = useState([]);
+
   const updateQuery = (query) => {
     const searchBooks = async () => {
       const res = await BooksAPI.search(query.trim().replace(".", ""));
+      
+      if (Array.isArray(res)) {
       res.forEach((book) => {
         const currentBook = books.find((b) => b.id === book.id);
         book.shelf = currentBook === undefined ? "none" : currentBook.shelf;
       });
+      setQuery(res);
+          } else {
+            setQuery([]);
+          }
+          //console.log(result);
       //   result.filter((book) =>
       //     book.title.toLowerCase().includes(query.toLowerCase())
       //   );
-      setQuery(res);
+      //setQuery(res);
     };
-    searchBooks();
+    if (query.length > 0) {
+      searchBooks();
+    } else {
+      setQuery([]);
+    }
   };
   return (
     <div className="search-books">
